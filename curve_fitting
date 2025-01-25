@@ -1,0 +1,109 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPzKlEZYi90iQ5FDobcmxBW",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/DRC-ch1208/Computational-physics-with-python/blob/main/curve_fitting\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "7Gvdzw9OMvsE",
+        "outputId": "a4995820-ee76-4249-ccd3-8a6fec817544"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter the number of terms: 3\n",
+            "Enter value of x[1]: 1\n",
+            "Enter value of x[2]: 2\n",
+            "Enter value of x[3]: 3\n",
+            "Enter value of y[1]: 2\n",
+            "Enter value of y[2]: 3\n",
+            "Enter value of y[3]: 5\n",
+            "Sum of x (sx): 6\n",
+            "Sum of y (sy): 10\n",
+            "Sum of x*y (sxy): 23\n",
+            "Sum of x^2 (sx2): 14\n",
+            "Intercept (a): 0.3333333333333333\n",
+            "Slope (b): 1.5\n"
+          ]
+        }
+      ],
+      "source": [
+        "# Take the number of terms as input from the user\n",
+        "N = int(input(\"Enter the number of terms: \"))\n",
+        "\n",
+        "# Initialize empty lists to store x and y values\n",
+        "x = []\n",
+        "y = []\n",
+        "\n",
+        "# Input values for x from the user and append them to the list\n",
+        "for n in range(N):\n",
+        "    X = int(input(f\"Enter value of x[{n+1}]: \"))\n",
+        "    x.append(X)\n",
+        "\n",
+        "# Input values for y from the user and append them to the list\n",
+        "for n in range(N):\n",
+        "    Y = int(input(f\"Enter value of y[{n+1}]: \"))\n",
+        "    y.append(Y)\n",
+        "\n",
+        "# Initialize variables to store summations\n",
+        "sigma_xy = 0  # Sum of products of corresponding x and y values\n",
+        "sigma_x2 = 0  # Sum of squares of x values\n",
+        "\n",
+        "# Calculate sigma_xy and sigma_x2\n",
+        "for i in range(N):\n",
+        "    sigma_xy += x[i] * y[i]\n",
+        "    sigma_x2 += x[i] ** 2\n",
+        "\n",
+        "# Display the summations for verification\n",
+        "print(\"Sum of x (sx):\", sum(x))\n",
+        "print(\"Sum of y (sy):\", sum(y))\n",
+        "print(\"Sum of x*y (sxy):\", sigma_xy)\n",
+        "print(\"Sum of x^2 (sx2):\", sigma_x2)\n",
+        "\n",
+        "# Assign summations to variables for readability\n",
+        "sx = sum(x)\n",
+        "sy = sum(y)\n",
+        "sxy = sigma_xy\n",
+        "sx2 = sigma_x2\n",
+        "\n",
+        "# Calculate the slope (b) and intercept (a) of the regression line\n",
+        "b = (N * sxy - sx * sy) / (N * sx2 - sx ** 2)\n",
+        "a = (sy - b * sx) / N\n",
+        "\n",
+        "# Display the results\n",
+        "print(\"Intercept (a):\", a)\n",
+        "print(\"Slope (b):\", b)\n"
+      ]
+    }
+  ]
+}
